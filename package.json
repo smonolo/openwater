@@ -1,0 +1,20 @@
+{
+  "name": "openwater",
+  "version": "1.0.0",
+  "description": "Open water swimming competitions and trainings.",
+  "author": "Stefano Monolo <stefano@smnl.dev>",
+  "packageManager": "npm@10.8.2",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "turbo": "^2.0.9"
+  }
+}
