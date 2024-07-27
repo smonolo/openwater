@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { authController } from '../controllers/auth'
 import { StatusCodes } from 'http-status-codes'
 import { Prisma } from '@prisma/client'
+import { ValidationError } from 'yup'
 
 const router = Router()
 
@@ -15,6 +16,10 @@ router.post('/register', async (req, res) => {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json({ error: error.message })
+    }
+
+    if (error instanceof ValidationError) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ error: error.message })
     }
   }
 })
@@ -33,6 +38,10 @@ router.post('/login', async (req, res) => {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json({ error: error.message })
+    }
+
+    if (error instanceof ValidationError) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ error: error.message })
     }
   }
 })

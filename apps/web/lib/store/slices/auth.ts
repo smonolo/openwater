@@ -17,7 +17,15 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    setError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload
+      state.isLoading = false
+    },
+    logout: state => {
+      state.user = null
+    }
+  },
   extraReducers: builder => {
     ;[register, login, verify].forEach(thunk => {
       builder
@@ -30,11 +38,14 @@ export const authSlice = createSlice({
           state.isLoading = false
         })
         .addCase(thunk.rejected, (state, action) => {
+          state.user = null
           state.error = action.payload as string
           state.isLoading = false
         })
     })
   }
 })
+
+export const { setError, logout } = authSlice.actions
 
 export default authSlice.reducer

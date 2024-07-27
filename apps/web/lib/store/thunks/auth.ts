@@ -19,18 +19,15 @@ export const register = createAsyncThunk<User, RegisterPayload>(
   async (payload, thunk) => {
     try {
       const response = await registerUser(payload)
-
-      if (!response.ok) {
-        return thunk.rejectWithValue('Failed to register')
-      }
-
       const data = await response.json()
 
       if (data.error) {
         return thunk.rejectWithValue(data.error)
-      }
+      } else {
+        localStorage.setItem('token', data.id)
 
-      return data
+        return data
+      }
     } catch {
       return thunk.rejectWithValue('Failed to register')
     }
@@ -42,18 +39,15 @@ export const login = createAsyncThunk<User, LoginPayload>(
   async (payload, thunk) => {
     try {
       const response = await loginUser(payload)
-
-      if (!response.ok) {
-        return thunk.rejectWithValue('Failed to login')
-      }
-
       const data = await response.json()
 
       if (data.error) {
         return thunk.rejectWithValue(data.error)
-      }
+      } else {
+        localStorage.setItem('token', data.id)
 
-      return data
+        return data
+      }
     } catch {
       return thunk.rejectWithValue('Failed to login')
     }
@@ -65,19 +59,20 @@ export const verify = createAsyncThunk<User, string>(
   async (id, thunk) => {
     try {
       const response = await verifyUser(id)
-
-      if (!response.ok) {
-        return thunk.rejectWithValue('Failed to verify')
-      }
-
       const data = await response.json()
 
       if (data.error) {
-        return thunk.rejectWithValue(data.error)
-      }
+        localStorage.removeItem('token')
 
-      return data
+        return thunk.rejectWithValue(data.error)
+      } else {
+        localStorage.setItem('token', data.id)
+
+        return data
+      }
     } catch {
+      localStorage.removeItem('token')
+
       return thunk.rejectWithValue('Failed to verify')
     }
   }

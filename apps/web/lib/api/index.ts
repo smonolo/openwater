@@ -5,7 +5,7 @@ type FetcherOptions = {
 }
 
 export const fetcher = async (endpoint: string, options?: FetcherOptions) => {
-  return await fetch(`${process.env.NUXT_PUBLIC_API_URL}/${endpoint}`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`, {
     method: options?.method,
     headers: {
       'Content-Type': 'application/json',

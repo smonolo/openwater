@@ -1,11 +1,26 @@
-import { PrismaClient } from '@prisma/client'
+import { type Prisma, PrismaClient } from '@prisma/client'
 import type { Request } from 'express'
 import { authHelper } from '../helpers/auth'
+import { loginSchema, registerSchema } from '../validations/auth'
 
 const prisma = new PrismaClient()
+const select: Prisma.UserSelect = {
+  id: true,
+  createdAt: true,
+  firstName: true,
+  lastName: true,
+  email: true,
+  password: false
+}
 
 export const authController = {
   register: async (body: Request['body']) => {
+    try {
+      await registerSchema.validate(body)
+    } catch (error) {
+      throw error
+    }
+
     const { firstName, lastName, email, password } = body
     const hashedPassword = await authHelper.hashPassword(password)
 
@@ -17,9 +32,7 @@ export const authController = {
           email,
           password: hashedPassword
         },
-        select: {
-          password: false
-        }
+        select
       })
 
       return user
@@ -28,6 +41,12 @@ export const authController = {
     }
   },
   login: async (body: Request['body']) => {
+    try {
+      await loginSchema.validate(body)
+    } catch (error) {
+      throw error
+    }
+
     const { email, password } = body
 
     try {
@@ -63,9 +82,7 @@ export const authController = {
         where: {
           id
         },
-        select: {
-          password: false
-        }
+        select
       })
 
       if (!user) {

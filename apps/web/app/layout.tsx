@@ -1,7 +1,5 @@
 import type { PropsWithChildren } from 'react'
 import type { Metadata, Viewport } from 'next'
-import Navbar from '@/components/layout/navbar'
-import Footer from '@/components/layout/footer'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import StoreProvider from '@/components/store/store-provider'
 import '@/app/globals.css'

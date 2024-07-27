@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import auth from './slices/auth'
+import auth from '@/lib/store/slices/auth'
 
 export const makeStore = () => {
   return configureStore({
