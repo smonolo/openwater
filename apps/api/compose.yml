@@ -5,5 +5,4 @@ services:
     image: smonolo/openwater-api
     ports:
       - '49165:49165'
-    # env_file: '/home/ubuntu/dev/openwater/config/.env'
-    env_file: '/home/stefano/dev/smonolo/openwater/apps/api/.env'
+    env_file: '/home/ubuntu/dev/openwater/config/.env'
