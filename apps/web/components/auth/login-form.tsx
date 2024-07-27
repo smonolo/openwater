@@ -6,7 +6,7 @@ import { login } from '@/lib/store/thunks/auth'
 import { loginSchema } from '@/validations/auth'
 import { createHash } from 'crypto'
 import { useRouter } from 'next/navigation'
-import { useCallback, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { ValidationError } from 'yup'
 
 export default function LoginForm() {
@@ -15,6 +15,12 @@ export default function LoginForm() {
   const router = useRouter()
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (auth.user) {
+      router.push('/')
+    }
+  }, [auth.user, router])
 
   const handleSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {

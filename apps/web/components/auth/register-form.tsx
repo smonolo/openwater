@@ -6,7 +6,7 @@ import { register } from '@/lib/store/thunks/auth'
 import { registerSchema } from '@/validations/auth'
 import { createHash } from 'crypto'
 import { useRouter } from 'next/navigation'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { ValidationError } from 'yup'
 
 export default function RegisterForm() {
@@ -17,6 +17,12 @@ export default function RegisterForm() {
   const lastNameRef = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (auth.user) {
+      router.push('/')
+    }
+  }, [auth.user, router])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()

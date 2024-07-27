@@ -7,7 +7,8 @@ import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import Popover from '@/components/ui/popover'
 
 type Item = {
   icon: string
@@ -27,10 +28,10 @@ export default function Navbar() {
   const dispatch = useAppDispatch()
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false)
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     localStorage.removeItem('token')
     dispatch(logout())
-  }
+  }, [dispatch])
 
   return (
     <div className="fixed left-0 top-0 w-full">
@@ -112,11 +113,79 @@ export default function Navbar() {
             </div>
             <div className="flex items-center lg:justify-end">
               {user ? (
-                <div className="text-right text-sm" onClick={handleLogout}>
-                  <span className="block font-semibold">
-                    {user.firstName} {user.lastName}
-                  </span>
-                  <span className="block text-neutral-400">{user.email}</span>
+                <div className="w-full lg:w-fit">
+                  <div className="flex flex-col gap-y-4 lg:hidden">
+                    <div className="flex w-fit items-center gap-x-2">
+                      <div className="flex h-8 w-8 cursor-pointer select-none items-center justify-center rounded-full bg-blue-500 text-sm font-semibold uppercase">
+                        {user.firstName.at(0)}
+                      </div>
+                      <div>
+                        <span className="block text-sm font-semibold">
+                          {user.firstName} {user.lastName}
+                        </span>
+                        <span className="block text-sm text-neutral-400">
+                          {user.email}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                      <Link
+                        href="/settings/profile"
+                        className="flex items-center justify-center gap-x-2 rounded-lg bg-neutral-700/80 px-4 py-1.5 font-semibold text-neutral-200 transition-colors hover:bg-neutral-700"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        <i className="bi bi-gear" />
+                        <span>Settings</span>
+                      </Link>
+                      <button
+                        className="flex items-center justify-center gap-x-2 rounded-lg bg-red-500/10 px-4 py-1.5 font-semibold text-red-500 transition-colors hover:bg-red-500/20"
+                        onClick={handleLogout}
+                      >
+                        <i className="bi bi-box-arrow-right" />
+                        <span>Log out</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="hidden lg:block">
+                    <Popover
+                      trigger={
+                        <div className="flex h-8 w-8 cursor-pointer select-none items-center justify-center rounded-full bg-blue-500 text-sm font-semibold uppercase">
+                          {user.firstName.at(0)}
+                        </div>
+                      }
+                    >
+                      <div className="p-5">
+                        <div className="flex flex-col items-center">
+                          <div className="flex h-12 w-12 select-none items-center justify-center rounded-full bg-blue-500 text-xl font-semibold uppercase">
+                            {user.firstName.at(0)}
+                          </div>
+                          <div className="mt-3 text-center">
+                            <span className="block font-semibold">
+                              {user.firstName} {user.lastName}
+                            </span>
+                            <span className="block text-sm text-neutral-400">
+                              {user.email}
+                            </span>
+                          </div>
+                          <Link
+                            href="/settings/profile"
+                            className="mt-4 flex w-fit items-center justify-center gap-x-2 rounded-lg bg-neutral-700/80 px-4 py-1.5 text-sm font-semibold transition-colors hover:bg-neutral-700"
+                          >
+                            <i className="bi bi-gear" />
+                            <span>Settings</span>
+                          </Link>
+                        </div>
+                        <div className="my-4 h-px w-full bg-neutral-700" />
+                        <button
+                          className="mx-auto flex w-fit items-baseline justify-center gap-x-2 rounded-lg px-4 py-1.5 text-sm font-semibold text-red-500 transition-colors hover:bg-red-500/10"
+                          onClick={handleLogout}
+                        >
+                          <i className="bi bi-box-arrow-right" />
+                          <span>Log out</span>
+                        </button>
+                      </div>
+                    </Popover>
+                  </div>
                 </div>
               ) : (
                 <div className="flex w-full flex-col items-center gap-x-3 gap-y-2 sm:flex-row lg:w-fit">
