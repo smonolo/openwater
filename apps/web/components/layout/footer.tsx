@@ -45,12 +45,17 @@ const sections: Section[] = [
 export default function Footer() {
   return (
     <footer className="border-t border-neutral-800">
-      <div className="content:px-0 mx-auto flex w-full max-w-[1200px] flex-col gap-y-5 px-5 py-5">
+      <div className="content:px-0 mx-auto flex w-full max-w-[1200px] flex-col gap-y-5 px-5 py-8">
         <div className="flex flex-col gap-y-5 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-x-5">
           <div className="flex w-fit flex-col gap-y-2">
-            <div className="flex w-fit items-center gap-x-2">
-              <Image src={logo} alt="OpenWater white logo" className="w-12" />
-              <span className="font-display text-2xl font-semibold">
+            <div className="flex w-fit select-none items-center gap-x-2">
+              <Image
+                src={logo}
+                alt="OpenWater white logo"
+                className="w-12"
+                draggable={false}
+              />
+              <span className="font-display text-2xl font-medium">
                 OpenWater
               </span>
             </div>
@@ -61,11 +66,12 @@ export default function Footer() {
           {sections.map((section, index) => (
             <div key={index} className="flex w-fit flex-col gap-y-2">
               <span className="text-xl font-semibold">{section.title}</span>
-              <ul>
+              <ul className="flex flex-col gap-y-1">
                 {section.items.map((item, index) => (
                   <li key={index}>
                     <Link
                       href={item.url}
+                      target={item.url.startsWith('http') ? '_blank' : '_self'}
                       className="text-neutral-400 transition-colors hover:text-neutral-200"
                     >
                       {item.text}
@@ -91,7 +97,7 @@ export default function Footer() {
             <Link
               href="https://smnl.dev"
               target="_blank"
-              className="text-neutral-200 transition-colors hover:text-blue-500"
+              className="transition-colors hover:text-neutral-200"
             >
               Stefano Monolo
             </Link>

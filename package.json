@@ -8,7 +8,11 @@
     "apps/*"
   ],
   "scripts": {
+    "dev:api": "turbo dev --filter=api",
+    "dev:web": "turbo dev --filter=web",
     "dev": "turbo dev",
+    "build:api": "turbo build --filter=api",
+    "build:web": "turbo build --filter=web",
     "build": "turbo build",
     "format": "prettier --write ."
   },

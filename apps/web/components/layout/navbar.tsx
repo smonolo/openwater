@@ -25,10 +25,15 @@ export default function Navbar() {
 
   return (
     <div className="fixed left-0 top-0 w-full">
-      <nav className="h-14 border-b border-neutral-800 bg-neutral-900">
+      <nav className="h-14 border-b border-neutral-700 bg-neutral-800">
         <div className="flex h-full items-center justify-between px-5 lg:hidden">
-          <Link href="/" className="flex h-full items-center">
-            <Image src={logo} alt="OpenWater white logo" className="w-9" />
+          <Link href="/" className="flex h-full select-none items-center">
+            <Image
+              src={logo}
+              alt="OpenWater white logo"
+              className="w-9"
+              draggable={false}
+            />
           </Link>
           <button
             className="flex h-full flex-col justify-center gap-y-1"
@@ -45,16 +50,21 @@ export default function Navbar() {
           onClick={() => setMenuOpen(false)}
         >
           <div
-            className="flex flex-col gap-y-5 border-b border-neutral-800 bg-neutral-900 px-5 py-5 lg:grid lg:h-full lg:grid-cols-3 lg:border-none lg:bg-transparent lg:py-0"
+            className="flex flex-col gap-y-5 border-b border-neutral-700 bg-neutral-800 px-5 py-5 lg:grid lg:h-full lg:grid-cols-3 lg:border-none lg:bg-transparent lg:py-0"
             onClick={event => event.stopPropagation()}
           >
             <div className="flex items-center">
               <Link
                 href="/"
-                className="flex items-center gap-x-1.5"
+                className="flex select-none items-center gap-x-1.5"
                 onClick={() => setMenuOpen(false)}
               >
-                <Image src={logo} alt="OpenWater white logo" className="w-9" />
+                <Image
+                  src={logo}
+                  alt="OpenWater white logo"
+                  className="w-9"
+                  draggable={false}
+                />
                 <span className="font-display text-lg font-medium">
                   OpenWater
                 </span>
@@ -69,8 +79,8 @@ export default function Navbar() {
                       className={classNames(
                         'flex items-center justify-between rounded-lg px-4 py-2 transition-colors',
                         pathname === item.url
-                          ? 'bg-neutral-800/80 hover:bg-neutral-800'
-                          : 'hover:bg-neutral-800/60'
+                          ? 'bg-neutral-700/80 hover:bg-neutral-700'
+                          : 'hover:bg-neutral-700/60'
                       )}
                       onClick={() => setMenuOpen(false)}
                     >
@@ -95,7 +105,7 @@ export default function Navbar() {
               <div className="flex w-full flex-col items-center gap-x-3 gap-y-2 sm:flex-row lg:w-fit">
                 <Link
                   href="/login"
-                  className="block w-full rounded-lg bg-neutral-800/80 px-4 py-1.5 text-center font-semibold hover:bg-neutral-800 lg:w-fit lg:bg-transparent lg:hover:bg-neutral-800/60"
+                  className="block w-full rounded-lg bg-neutral-700/80 px-4 py-1.5 text-center font-semibold hover:bg-neutral-700 lg:w-fit lg:bg-transparent lg:hover:bg-neutral-700/60"
                   onClick={() => setMenuOpen(false)}
                 >
                   Login

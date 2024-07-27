@@ -2,13 +2,14 @@ import type { PropsWithChildren } from 'react'
 import type { Metadata, Viewport } from 'next'
 import Navbar from '@/components/layout/navbar'
 import Footer from '@/components/layout/footer'
-import '@/app/globals.css'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import StoreProvider from '@/components/store/store-provider'
+import '@/app/globals.css'
 
 export const metadata: Metadata = {
   title: {
-    template: '$s | OpenWater',
-    default: 'OpenWater - Swimming competitions and trainings'
+    template: '%s | OpenWater',
+    default: 'Swimming competitions and trainings | OpenWater'
   },
   description: 'Open water swimming competitions and trainings.',
   alternates: {
@@ -51,17 +52,13 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en">
-      <body className="font-body relative bg-neutral-900 font-medium text-neutral-50">
-        <GoogleAnalytics gaId="G-Y85MXD40BG" />
-        <Navbar />
-        <div className="flex min-h-screen flex-col justify-between pt-14">
-          <main className="content:px-0 mx-auto w-full max-w-[1200px] px-5">
-            {children}
-          </main>
-          <Footer />
-        </div>
-      </body>
-    </html>
+    <StoreProvider>
+      <html lang="en">
+        <body className="font-body relative bg-neutral-900 font-medium text-neutral-50">
+          <GoogleAnalytics gaId="G-Y85MXD40BG" />
+          {children}
+        </body>
+      </html>
+    </StoreProvider>
   )
 }
