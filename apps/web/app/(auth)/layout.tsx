@@ -27,9 +27,7 @@ export default function AuthLayout({ children }: PropsWithChildren) {
           <span>Explore</span>
         </Link>
       </nav>
-      <main className="flex h-screen justify-center px-5 py-28">
-        {children}
-      </main>
+      <main className="flex justify-center px-5 pb-44 pt-28">{children}</main>
       <Footer />
     </div>
   )

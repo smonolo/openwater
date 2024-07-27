@@ -25,7 +25,7 @@ export default function Navbar() {
 
   return (
     <div className="fixed left-0 top-0 w-full">
-      <nav className="h-14 border-b border-neutral-700 bg-neutral-800">
+      <nav className="h-14 bg-neutral-800">
         <div className="flex h-full items-center justify-between px-5 lg:hidden">
           <Link href="/" className="flex h-full select-none items-center">
             <Image

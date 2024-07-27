@@ -45,7 +45,7 @@ const sections: Section[] = [
 export default function Footer() {
   return (
     <footer className="border-t border-neutral-800">
-      <div className="content:px-0 mx-auto flex w-full max-w-[1200px] flex-col gap-y-5 px-5 py-8">
+      <div className="content:px-0 mx-auto flex w-full max-w-[1200px] flex-col gap-y-8 px-5 py-8">
         <div className="flex flex-col gap-y-5 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-x-5">
           <div className="flex w-fit flex-col gap-y-2">
             <div className="flex w-fit select-none items-center gap-x-2">
