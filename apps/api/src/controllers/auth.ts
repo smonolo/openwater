@@ -14,6 +14,12 @@ const select: Prisma.UserSelect = {
 }
 
 export const authController = {
+  /**
+   * Register a new user.
+   *
+   * @param {Request['body']} body The request body.
+   * @returns The registered user and a new JWT.
+   */
   register: async (body: Request['body']) => {
     try {
       await registerSchema.validate(body)
@@ -35,11 +41,21 @@ export const authController = {
         select
       })
 
-      return user
+      return {
+        token: authHelper.signToken({ id: user.id }),
+        user
+      }
     } catch (error) {
       throw error
     }
   },
+
+  /**
+   * Login a user.
+   *
+   * @param {Request['body']} body The request body.
+   * @returns The logged in user and a new JWT.
+   */
   login: async (body: Request['body']) => {
     try {
       await loginSchema.validate(body)
@@ -71,25 +87,48 @@ export const authController = {
 
       const { password: _, ...publicUser } = user
 
-      return publicUser
+      return {
+        token: authHelper.signToken({ id: user.id }),
+        user: publicUser
+      }
     } catch (error) {
       throw error
     }
   },
-  verify: async (id: string) => {
-    try {
-      const user = await prisma.user.findUnique({
-        where: {
-          id
-        },
-        select
-      })
 
-      if (!user) {
+  /**
+   * Verify a user given a JWT.
+   *
+   * @param {string} token The user JWT.
+   * @returns The verified user and a new JWT.
+   */
+  verify: async (token: string) => {
+    try {
+      const { id } = authHelper.verifyToken(token) as { id: string }
+
+      if (!id) {
         throw new Error('Invalid authentication')
       }
 
-      return user
+      try {
+        const user = await prisma.user.findUnique({
+          where: {
+            id
+          },
+          select
+        })
+
+        if (!user) {
+          throw new Error('Invalid authentication')
+        }
+
+        return {
+          token: authHelper.signToken({ id: user.id }),
+          user
+        }
+      } catch (error) {
+        throw error
+      }
     } catch (error) {
       throw error
     }

@@ -3,6 +3,7 @@ import { authController } from '../controllers/auth'
 import { StatusCodes } from 'http-status-codes'
 import { Prisma } from '@prisma/client'
 import { ValidationError } from 'yup'
+import { JsonWebTokenError } from 'jsonwebtoken'
 
 const router = Router()
 
@@ -46,9 +47,18 @@ router.post('/login', async (req, res) => {
   }
 })
 
-router.post('/verify', async (req, res) => {
+router.get('/verify', async (req, res) => {
   try {
-    const user = await authController.verify(req.body.id)
+    const authorization = req.headers.authorization
+
+    if (!authorization) {
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ error: 'No token provided' })
+    }
+
+    const token = authorization.split(' ')[1]
+    const user = await authController.verify(token)
 
     return res.status(StatusCodes.OK).json(user)
   } catch (error) {
@@ -60,6 +70,10 @@ router.post('/verify', async (req, res) => {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json({ error: error.message })
+    }
+
+    if (error instanceof JsonWebTokenError) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({ error: error.message })
     }
   }
 })

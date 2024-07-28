@@ -15,9 +15,11 @@ export const loginUser = async (payload: LoginPayload) => {
   })
 }
 
-export const verifyUser = async (id: string) => {
+export const verifyUser = async (token: string) => {
   return await fetcher('auth/verify', {
-    method: 'POST',
-    body: JSON.stringify({ id })
+    method: 'GET',
+    headers: {
+      authorization: `Bearer ${token}`
+    }
   })
 }

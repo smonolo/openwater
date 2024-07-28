@@ -18,8 +18,9 @@ type Item = {
 
 const items: Item[] = [
   { icon: 'bi bi-compass', text: 'Explore', url: '/' },
-  { icon: 'bi bi-plus-circle', text: 'Publish', url: '/publish' },
-  { icon: 'bi bi-tsunami', text: 'About', url: '/about' }
+  { icon: 'bi bi-trophy', text: 'Competitions', url: '/competitions' },
+  { icon: 'bi bi-lightning', text: 'Training', url: '/training' },
+  { icon: 'bi bi-plus-circle', text: 'Publish', url: '/publish' }
 ]
 
 export default function Navbar() {

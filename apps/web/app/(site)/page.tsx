@@ -1,8 +1,9 @@
+import PlanBanner from '@/components/explore/plan-banner'
+
 export default function Home() {
   return (
-    <section className="pt-10">
-      <h1 className="font-display text-3xl font-semibold">Explore</h1>
-      <p className="mt-2 text-neutral-200">This section is coming soon.</p>
+    <section className="py-10">
+      <PlanBanner />
     </section>
   )
 }

@@ -16,7 +16,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
   }, [user, router])
 
   return (
-    <section className="flex w-full flex-col gap-x-10 gap-y-5 py-10 lg:flex-row">
+    <section className="mt-5 flex w-full flex-col gap-x-10 gap-y-5 py-10 lg:flex-row">
       <SettingsSidebar />
       <div className="w-full">{children}</div>
     </section>

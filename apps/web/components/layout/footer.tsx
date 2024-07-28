@@ -22,12 +22,16 @@ const sections: Section[] = [
         url: '/'
       },
       {
-        text: 'Publish',
-        url: '/publish'
+        text: 'Competitions',
+        url: '/competitions'
       },
       {
-        text: 'About',
-        url: '/about'
+        text: 'Training',
+        url: '/training'
+      },
+      {
+        text: 'Publish',
+        url: '/publish'
       }
     ]
   },
@@ -60,7 +64,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm text-neutral-400">
-              Open water swimming competitions and trainings.
+              Open water swimming competitions and training.
             </p>
           </div>
           {sections.map((section, index) => (

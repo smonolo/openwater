@@ -7,9 +7,9 @@ import '@/app/globals.css'
 export const metadata: Metadata = {
   title: {
     template: '%s | OpenWater',
-    default: 'Swimming competitions and trainings | OpenWater'
+    default: 'Swimming competitions and training | OpenWater'
   },
-  description: 'Open water swimming competitions and trainings.',
+  description: 'Open water swimming competitions and training.',
   alternates: {
     canonical: '/'
   },
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.openwaterapp.com'),
   openGraph: {
     title: 'OpenWater',
-    description: 'Open water swimming competitions and trainings.',
+    description: 'Open water swimming competitions and training.',
     url: 'https://www.openwaterapp.com',
     type: 'website',
     siteName: 'OpenWater'
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: 'summary',
     creator: '@stmonolo',
     title: 'OpenWater',
-    description: 'Open water swimming competitions and trainings.'
+    description: 'Open water swimming competitions and training.'
   }
 }
 

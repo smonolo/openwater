@@ -1,3 +1,3 @@
 # OpenWater
 
-Open water swimming competitions and trainings.
+Open water swimming competitions and training.

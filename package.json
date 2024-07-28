@@ -1,7 +1,7 @@
 {
   "name": "openwater",
   "version": "1.0.0",
-  "description": "Open water swimming competitions and trainings.",
+  "description": "Open water swimming competitions and training.",
   "author": "Stefano Monolo <stefano@smnl.dev>",
   "packageManager": "npm@10.8.2",
   "workspaces": [

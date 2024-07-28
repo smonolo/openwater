@@ -8,10 +8,39 @@ datasource db {
 }
 
 model User {
+  id            String         @id @default(cuid())
+  createdAt     DateTime       @default(now())
+  email         String         @unique @db.VarChar(100)
+  password      String
+  firstName     String         @db.VarChar(100)
+  lastName      String         @db.VarChar(100)
+  registrations Registration[]
+  events        Event[]
+}
+
+model Registration {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
-  email     String   @unique @db.VarChar(100)
-  password  String
-  firstName String   @db.VarChar(100)
-  lastName  String   @db.VarChar(100)
+  userId    String
+  eventId   String
+  user      User     @relation(fields: [userId], references: [id])
+  event     Event    @relation(fields: [eventId], references: [id])
+}
+
+model Event {
+  id              String         @id @default(cuid())
+  createdAt       DateTime       @default(now())
+  name            String
+  description     String
+  startDate       DateTime
+  endDate         DateTime
+  location        String
+  distance        Float
+  minParticipants Int?
+  maxParticipants Int?
+  presentation    String?
+  website         String?
+  userId          String
+  user            User           @relation(fields: [userId], references: [id])
+  registrations   Registration[]
 }
